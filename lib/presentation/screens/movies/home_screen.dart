@@ -37,7 +37,9 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     return Column(
       children: [
         const CustomAppbar(),
-        Expanded(
+        MoviesSlideshow(movies: nowPlayingMovies)
+
+        /*Expanded(
           //El expanded lo que hace es que dentro del padre se expanda todo lo posible
           child: ListView.builder(
             itemCount: nowPlayingMovies.length,
@@ -47,7 +49,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
               return ListTile(title: Text(movie.title));
             },
           ),
-        )
+        )*/
       ],
     );
   }
