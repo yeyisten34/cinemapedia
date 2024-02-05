@@ -34,11 +34,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final nowPLayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideShowProvider);
     return Column(
       children: [
         const CustomAppbar(),
-        MoviesSlideshow(movies: slideShowMovies)
+        MoviesSlideshow(movies: slideShowMovies),
+        MovieHorizontalListview(
+          movies: nowPLayingMovies,
+          title: 'En Cines',
+          subTitle: 'Lunes 20',
+        )
 
         /*Expanded(
           //El expanded lo que hace es que dentro del padre se expanda todo lo posible
