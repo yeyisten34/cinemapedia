@@ -36,44 +36,50 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   Widget build(BuildContext context) {
     final nowPLayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideShowProvider);
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const CustomAppbar(),
-          MoviesSlideshow(movies: slideShowMovies),
-          MovieHorizontalListview(
-              movies: nowPLayingMovies,
-              title: 'En Cines',
-              subTitle: 'Lunes 20',
-              loadNextPage: () {
-                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-              }),
-          MovieHorizontalListview(
-              movies: nowPLayingMovies,
-              title: 'Proximamente',
-              subTitle: 'En este mes',
-              loadNextPage: () {
-                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-              }),
-          MovieHorizontalListview(
-              movies: nowPLayingMovies,
-              title: 'Populares',
-              subTitle: 'En este mes',
-              loadNextPage: () {
-                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-              }),
-          MovieHorizontalListview(
-              movies: nowPLayingMovies,
-              title: 'Mejor calificadas',
-              subTitle: 'Desde siempre',
-              loadNextPage: () {
-                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-              }),
-          const SizedBox(
-            height: 50,
-          )
+    return CustomScrollView(slivers: [
+      const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(),
+          title: CustomAppbar()),
+      SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+        return Column(
+          children: [
+            //const CustomAppbar(),
+            MoviesSlideshow(movies: slideShowMovies),
+            MovieHorizontalListview(
+                movies: nowPLayingMovies,
+                title: 'En Cines',
+                subTitle: 'Lunes 20',
+                loadNextPage: () {
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                }),
+            MovieHorizontalListview(
+                movies: nowPLayingMovies,
+                title: 'Proximamente',
+                subTitle: 'En este mes',
+                loadNextPage: () {
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                }),
+            MovieHorizontalListview(
+                movies: nowPLayingMovies,
+                title: 'Populares',
+                subTitle: 'En este mes',
+                loadNextPage: () {
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                }),
+            MovieHorizontalListview(
+                movies: nowPLayingMovies,
+                title: 'Mejor calificadas',
+                subTitle: 'Desde siempre',
+                loadNextPage: () {
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                }),
+            const SizedBox(
+              height: 50,
+            )
 
-          /*Expanded(
+            /*Expanded(
             //El expanded lo que hace es que dentro del padre se expanda todo lo posible
             child: ListView.builder(
               itemCount: nowPlayingMovies.length,
@@ -84,8 +90,9 @@ class _HomeViewState extends ConsumerState<_HomeView> {
               },
             ),
           )*/
-        ],
-      ),
-    );
+          ],
+        );
+      }, childCount: 1)),
+    ]);
   }
 }
