@@ -36,28 +36,56 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   Widget build(BuildContext context) {
     final nowPLayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideShowProvider);
-    return Column(
-      children: [
-        const CustomAppbar(),
-        MoviesSlideshow(movies: slideShowMovies),
-        MovieHorizontalListview(
-          movies: nowPLayingMovies,
-          title: 'En Cines',
-          subTitle: 'Lunes 20',
-        )
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const CustomAppbar(),
+          MoviesSlideshow(movies: slideShowMovies),
+          MovieHorizontalListview(
+              movies: nowPLayingMovies,
+              title: 'En Cines',
+              subTitle: 'Lunes 20',
+              loadNextPage: () {
+                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              }),
+          MovieHorizontalListview(
+              movies: nowPLayingMovies,
+              title: 'Proximamente',
+              subTitle: 'En este mes',
+              loadNextPage: () {
+                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              }),
+          MovieHorizontalListview(
+              movies: nowPLayingMovies,
+              title: 'Populares',
+              subTitle: 'En este mes',
+              loadNextPage: () {
+                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              }),
+          MovieHorizontalListview(
+              movies: nowPLayingMovies,
+              title: 'Mejor calificadas',
+              subTitle: 'Desde siempre',
+              loadNextPage: () {
+                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              }),
+          const SizedBox(
+            height: 50,
+          )
 
-        /*Expanded(
-          //El expanded lo que hace es que dentro del padre se expanda todo lo posible
-          child: ListView.builder(
-            itemCount: nowPlayingMovies.length,
-            itemBuilder: (context, index) {
-              final movie = nowPlayingMovies[index];
-
-              return ListTile(title: Text(movie.title));
-            },
-          ),
-        )*/
-      ],
+          /*Expanded(
+            //El expanded lo que hace es que dentro del padre se expanda todo lo posible
+            child: ListView.builder(
+              itemCount: nowPlayingMovies.length,
+              itemBuilder: (context, index) {
+                final movie = nowPlayingMovies[index];
+    
+                return ListTile(title: Text(movie.title));
+              },
+            ),
+          )*/
+        ],
+      ),
     );
   }
 }
