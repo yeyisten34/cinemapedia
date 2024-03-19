@@ -31,6 +31,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+    ref.read(topRateProvider.notifier).loadNextPage();
   }
 
   @override
@@ -38,6 +40,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final slideShowMovies = ref.watch(moviesSlideShowProvider);
     final nowPLayingMovies = ref.watch(nowPlayingMoviesProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    final topRatedMovies = ref.watch(topRateProvider);
+
+    return FullScreenLoader();
 
     return CustomScrollView(slivers: [
       const SliverPadding(
@@ -62,11 +68,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
                 }),
             MovieHorizontalListview(
-                movies: nowPLayingMovies,
+                movies: upcomingMovies,
                 title: 'Proximamente',
                 subTitle: 'En este mes',
                 loadNextPage: () {
-                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                  ref.read(upcomingMoviesProvider.notifier).loadNextPage();
                 }),
             MovieHorizontalListview(
                 movies: popularMovies,
@@ -76,11 +82,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   ref.read(popularMoviesProvider.notifier).loadNextPage();
                 }),
             MovieHorizontalListview(
-                movies: nowPLayingMovies,
+                movies: topRatedMovies,
                 title: 'Mejor calificadas',
                 subTitle: 'Desde siempre',
                 loadNextPage: () {
-                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                  ref.read(topRateProvider.notifier).loadNextPage();
                 }),
             const SizedBox(
               height: 50,
